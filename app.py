@@ -31,15 +31,13 @@ def extract_fields(img_bytes):
         "aadhaar_number": aadhaar_no
     }
 
-@app.route("/")
+@app.route("/", methods=["GET", "POST"])
 def home():
-    return "Aadhaar OCR API is Live 🎉"
-
-@app.route("/ocr", methods=["GET", "POST"])
-def ocr():
+    # GET – फक्त चेक करण्यासाठी
     if request.method == "GET":
-        return "OCR endpoint OK. Send POST with 'file' field."
+        return "Aadhaar OCR API is Live 🎉 (POST image to this same URL)"
 
+    # POST – इथे image येईल
     if "file" not in request.files:
         return jsonify({"success": False, "error": "No file"}), 400
 
