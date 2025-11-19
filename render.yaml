@@ -1,9 +1,13 @@
 services:
   - type: web
     name: aadhaar-ocr-api
-    env: python
-    plan: free
-    buildCommand: |
-      apt-get update && apt-get install -y tesseract-ocr libtesseract-dev
-      pip install -r requirements.txt
-    startCommand: gunicorn app:app
+    runtime: python
+    region: oregon
+    buildCommand: pip install -r requirements.txt
+    startCommand: python app.py
+    envVars:
+      PYTHON_VERSION: 3.8
+    build:
+      packages:
+        - tesseract-ocr
+        - libtesseract-dev
