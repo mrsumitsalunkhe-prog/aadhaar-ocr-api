@@ -2,8 +2,8 @@ services:
   - type: web
     name: aadhaar-ocr-api
     env: python
-    buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn app:app
     plan: free
-    region: singapore
-    autoDeploy: true
+    buildCommand: |
+      apt-get update && apt-get install -y tesseract-ocr libtesseract-dev
+      pip install -r requirements.txt
+    startCommand: gunicorn app:app
